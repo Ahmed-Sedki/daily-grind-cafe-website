@@ -28,6 +28,11 @@ export default defineConfig(({ mode }) => ({
         changeOrigin: true,
         ws: true, // Enable WebSocket proxying
       },
+      // Proxy uploads (images) to backend
+      '/uploads': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
     },
   },
   plugins: [
