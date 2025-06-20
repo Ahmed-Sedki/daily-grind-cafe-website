@@ -220,7 +220,6 @@ The project uses Shadcn/ui components for a consistent, modern design:
 
 ## 📱 Responsive Design
 
-- Mobile-first approach
 - Responsive breakpoints for all screen sizes
 - Touch-friendly interface
 - Optimized images and assets
