@@ -284,65 +284,53 @@ npm run seed         # Seed database with initial data
 ### Administrative Dashboard
 <div align="center">
   <img src="screenshots/7.png" alt="Admin Dashboard" width="800"/>
-  <p><em>Administrative dashboard overview</em></p>
 </div>
 
 <div align="center">
   <img src="screenshots/8.png" alt="User Management" width="800"/>
-  <p><em>User management interface</em></p>
 </div>
 
 <div align="center">
   <img src="screenshots/9.png" alt="Content Management" width="800"/>
-  <p><em>Content management system</em></p>
 </div>
 
 ### Menu & Gallery Management
 <div align="center">
   <img src="screenshots/10.png" alt="Menu Management" width="800"/>
-  <p><em>Menu item management interface</em></p>
 </div>
 
 <div align="center">
   <img src="screenshots/11.png" alt="Gallery Management" width="800"/>
-  <p><em>Gallery management system</em></p>
 </div>
 
 <div align="center">
   <img src="screenshots/12.png" alt="Announcements Management" width="800"/>
-  <p><em>Announcements management interface</em></p>
 </div>
 
 ### FAQ & Contact Management
 <div align="center">
   <img src="screenshots/13.png" alt="FAQ Management" width="800"/>
-  <p><em>FAQ management system</em></p>
 </div>
 
 <div align="center">
   <img src="screenshots/14.png" alt="Contact Management" width="800"/>
-  <p><em>Contact inquiries management</em></p>
 </div>
 
 <div align="center">
   <img src="screenshots/15.png" alt="Subscriber Management" width="800"/>
-  <p><em>Email subscriber management</em></p>
 </div>
 
 ### Authentication & Security
 <div align="center">
   <img src="screenshots/16.png" alt="Login Page" width="800"/>
-  <p><em>Secure login interface</em></p>
 </div>
 
 <div align="center">
   <img src="screenshots/17.png" alt="Registration" width="800"/>
-  <p><em>User registration system</em></p>
 </div>
 
 <div align="center">
   <img src="screenshots/18.png" alt="User Profile" width="800"/>
-  <p><em>User profile management</em></p>
 </div>
 
 ## 🙏 Acknowledgments
