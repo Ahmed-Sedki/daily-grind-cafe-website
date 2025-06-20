@@ -7,6 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import contactService from "@/services/contact.service";
+import { useState } from "react";
 
 // Validation schema for contact form
 const formSchema = z.object({
@@ -19,7 +21,8 @@ type FormValues = z.infer<typeof formSchema>;
 
 const ContactForm = () => {
   const { toast } = useToast();
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   // Form setup
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -29,18 +32,30 @@ const ContactForm = () => {
       message: ""
     },
   });
-  
+
   // Handle form submission
   const onSubmit = async (values: FormValues) => {
-    console.log("Form submitted:", values);
-    
-    toast({
-      title: "Message Sent",
-      description: "Thank you for your message! We'll get back to you soon.",
-    });
-    
-    // Reset form
-    form.reset();
+    setIsSubmitting(true);
+
+    try {
+      await contactService.submitContactForm(values);
+
+      toast({
+        title: "Message Sent",
+        description: "Thank you for your message! We'll get back to you soon.",
+      });
+
+      // Reset form
+      form.reset();
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.response?.data?.message || "Failed to send message. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -92,8 +107,12 @@ const ContactForm = () => {
           )}
         />
         
-        <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700">
-          Send Message
+        <Button
+          type="submit"
+          className="w-full bg-amber-600 hover:bg-amber-700"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Sending..." : "Send Message"}
         </Button>
       </form>
     </Form>

@@ -63,11 +63,11 @@
   .cafe-button {
     @apply bg-cafe-brown text-cafe-cream hover:bg-cafe-darkBrown transition-colors px-6 py-3 rounded-md font-medium;
   }
-  
+
   .section-title {
     @apply text-3xl md:text-4xl font-serif font-bold text-cafe-darkBrown mb-4;
   }
-  
+
   .section-subtitle {
     @apply text-xl font-serif text-cafe-brown mb-6;
   }

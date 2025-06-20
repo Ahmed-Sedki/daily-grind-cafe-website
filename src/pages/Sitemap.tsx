@@ -77,7 +77,7 @@ const Sitemap = () => {
               <h1 className="section-title mb-0">Site Map</h1>
             </div>
             <p className="text-lg text-cafe-brown max-w-2xl mx-auto">
-              Navigate through all the pages and sections of Daily Grind Cafe. 
+              Navigate through all the pages and sections of L Cafe. 
               Find exactly what you're looking for with our comprehensive site structure.
             </p>
           </div>

@@ -4,6 +4,7 @@ import { useSocket } from "@/contexts/SocketContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import visitorService from "@/services/visitor.service";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const DashboardHome = () => {
   const { user } = useNewAuth();
@@ -91,18 +92,18 @@ const DashboardHome = () => {
           <CardContent className="space-y-4">
             <p>Select one of these quick links to get started:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <a href="/dashboard/announcements" className="px-4 py-3 bg-amber-50 hover:bg-amber-100 rounded-lg border border-amber-200 text-amber-800 text-center">
+              <Link to="/dashboard/announcements" className="px-4 py-3 bg-amber-50 hover:bg-amber-100 rounded-lg border border-amber-200 text-amber-800 text-center transition-all duration-200 hover:shadow-md">
                 Manage Announcements
-              </a>
-              <a href="/dashboard/menu" className="px-4 py-3 bg-amber-50 hover:bg-amber-100 rounded-lg border border-amber-200 text-amber-800 text-center">
+              </Link>
+              <Link to="/dashboard/menu" className="px-4 py-3 bg-amber-50 hover:bg-amber-100 rounded-lg border border-amber-200 text-amber-800 text-center transition-all duration-200 hover:shadow-md">
                 Update Menu
-              </a>
-              <a href="/dashboard/gallery" className="px-4 py-3 bg-amber-50 hover:bg-amber-100 rounded-lg border border-amber-200 text-amber-800 text-center">
+              </Link>
+              <Link to="/dashboard/gallery" className="px-4 py-3 bg-amber-50 hover:bg-amber-100 rounded-lg border border-amber-200 text-amber-800 text-center transition-all duration-200 hover:shadow-md">
                 Gallery Management
-              </a>
-              <a href="/dashboard/faq" className="px-4 py-3 bg-amber-50 hover:bg-amber-100 rounded-lg border border-amber-200 text-amber-800 text-center">
+              </Link>
+              <Link to="/dashboard/faq" className="px-4 py-3 bg-amber-50 hover:bg-amber-100 rounded-lg border border-amber-200 text-amber-800 text-center transition-all duration-200 hover:shadow-md">
                 Review Customer Questions
-              </a>
+              </Link>
             </div>
           </CardContent>
         </Card>

@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  role: { 
-    type: String, 
-    enum: ['admin', 'editor', 'staff'], 
-    default: 'staff' 
+  role: {
+    type: String,
+    enum: ['admin', 'staff', 'customer'],
+    default: 'customer'
   },
   firstName: { type: String },
   lastName: { type: String },
@@ -59,6 +59,9 @@ userSchema.pre('save', async function(next) {
 userSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
+
+// Indexes for performance
+userSchema.index({ role: 1, active: 1 });
 
 const User = mongoose.model('User', userSchema);
 

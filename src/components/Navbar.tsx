@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Coffee, Menu as MenuIcon, X } from "lucide-react";
 import {
@@ -33,7 +33,9 @@ const navigationItems = [
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -42,26 +44,26 @@ const Navbar = () => {
         setIsScrolled(false);
       }
     };
-    
+
     window.addEventListener("scroll", handleScroll);
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
   
   return (
-    <header 
+    <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-white shadow-md py-2" 
+        isScrolled || !isHomePage
+          ? "bg-white shadow-md py-2"
           : "bg-transparent py-4"
       }`}
     >
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
-          <Coffee size={28} className={isScrolled ? "text-cafe-brown" : "text-white"} />
-          <span className={`font-serif text-xl font-bold ${isScrolled ? "text-cafe-brown" : "text-white"}`}>Daily Grind</span>
+          <Coffee size={28} className={(isScrolled || !isHomePage) ? "text-cafe-darkBrown" : "text-white"} />
+          <span className={`font-serif text-xl font-bold ${(isScrolled || !isHomePage) ? "text-cafe-darkBrown" : "text-white"}`}>L cafe</span>
         </Link>
         
         <NavigationMenu className="hidden md:flex">
@@ -79,7 +81,7 @@ const Navbar = () => {
         
         <div className="flex items-center gap-4">
           <Link to="/login">
-            <Button variant="outline" className="hidden md:inline-flex border-cafe-brown text-cafe-brown hover:bg-cafe-brown hover:text-white">
+            <Button variant="glass" className="hidden md:inline-flex">
               Login
             </Button>
           </Link>
@@ -93,12 +95,12 @@ const Navbar = () => {
                 className="md:hidden"
                 aria-label="Menu"
               >
-                <MenuIcon className={isScrolled ? "text-cafe-brown" : "text-white"} />
+                <MenuIcon className={(isScrolled || !isHomePage) ? "text-cafe-darkBrown" : "text-white"} />
               </Button>
             </SheetTrigger>
             <SheetContent className="bg-white">
               <SheetHeader>
-                <SheetTitle className="font-serif text-xl text-cafe-brown">Daily Grind</SheetTitle>
+                <SheetTitle className="font-serif text-xl text-cafe-brown">L cafe</SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-4">
                 {navigationItems.map((item, index) => (

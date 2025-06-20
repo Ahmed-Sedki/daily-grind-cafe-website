@@ -1,15 +1,56 @@
 
 import { Coffee, Instagram, Facebook, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import subscriberService from "@/services/subscriber.service";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email.trim()) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Please enter your email address.",
+      });
+      return;
+    }
+
+    setIsSubscribing(true);
+
+    try {
+      await subscriberService.subscribe({ email: email.trim(), source: 'footer' });
+
+      toast({
+        title: "Subscribed!",
+        description: "Thank you for subscribing to our newsletter!",
+      });
+
+      setEmail("");
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.response?.data?.message || "Failed to subscribe. Please try again.",
+      });
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
+
   return (
     <footer className="bg-cafe-darkBrown text-cafe-cream py-12">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center mb-10">
           <Link to="/" className="flex items-center gap-2 mb-6 md:mb-0">
             <Coffee size={28} className="text-cafe-cream" />
-            <span className="font-serif text-xl font-bold">Daily Grind</span>
+            <span className="font-serif text-xl font-bold">L cafe</span>
           </Link>
           
           <div className="flex space-x-6">
@@ -56,22 +97,29 @@ const Footer = () => {
             <div>
               <h3 className="font-serif font-bold text-lg mb-4">Subscribe</h3>
               <p className="mb-4">Join our mailing list for updates, promotions, and coffee tips.</p>
-              <div className="flex">
-                <input 
-                  type="email" 
-                  placeholder="Your email" 
+              <form onSubmit={handleSubscribe} className="flex">
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="bg-cafe-brown text-cafe-cream px-4 py-2 rounded-l-md w-full focus:outline-none focus:ring-1 focus:ring-cafe-orange"
+                  disabled={isSubscribing}
                 />
-                <button className="bg-cafe-orange text-white px-4 py-2 rounded-r-md hover:bg-opacity-90 transition-colors">
-                  Join
+                <button
+                  type="submit"
+                  className="bg-cafe-orange text-white px-4 py-2 rounded-r-md hover:bg-opacity-90 transition-colors disabled:opacity-50"
+                  disabled={isSubscribing}
+                >
+                  {isSubscribing ? "..." : "Join"}
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </div>
         
         <div className="text-center mt-10 pt-6 border-t border-cafe-brown text-sm text-cafe-cream/70">
-          <p>© {new Date().getFullYear()} Daily Grind Cafe. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} L Cafe. All rights reserved.</p>
         </div>
       </div>
     </footer>

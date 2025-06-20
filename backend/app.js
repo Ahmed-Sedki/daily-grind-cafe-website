@@ -19,6 +19,8 @@ import qaRoutes from './routes/qa.routes.js';
 import sitemapRoutes from './routes/sitemap.routes.js';
 import userRoutes from './routes/user.routes.js';
 import menuRoutes from './routes/menu.routes.js';
+import contactRoutes from './routes/contact.routes.js';
+import subscriberRoutes from './routes/subscriber.routes.js';
 
 // Import middleware
 import visitorTracker from './middleware/visitor.middleware.js';
@@ -155,6 +157,8 @@ app.use('/api/qa', qaRoutes);
 app.use('/api/sitemap', sitemapRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/menu', menuRoutes);
+app.use('/api/contact', contactRoutes);
+app.use('/api/subscribers', subscriberRoutes);
 
 // Serve XML sitemap at the root level for SEO
 app.get('/sitemap.xml', (req, res) => {

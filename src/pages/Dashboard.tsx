@@ -10,6 +10,8 @@ import DashboardMenu from "@/components/dashboard/DashboardMenu";
 import DashboardGallery from "@/components/dashboard/DashboardGallery";
 import DashboardFAQ from "@/components/dashboard/DashboardFAQ";
 import DashboardUsers from "@/components/dashboard/DashboardUsers";
+import DashboardContacts from "@/components/dashboard/DashboardContacts";
+import DashboardSubscribers from "@/components/dashboard/DashboardSubscribers";
 
 const Dashboard = () => {
   const { user, isAuthenticated, logout } = useNewAuth();
@@ -134,6 +136,26 @@ const Dashboard = () => {
                 >
                   Users
                 </Link>
+                <Link
+                  to="/dashboard/contacts"
+                  className={`block px-4 py-2 rounded-md ${
+                    activeTab === "contacts"
+                      ? "bg-amber-200 text-amber-900"
+                      : "text-amber-800 hover:bg-amber-100"
+                  }`}
+                >
+                  Contact Messages
+                </Link>
+                <Link
+                  to="/dashboard/subscribers"
+                  className={`block px-4 py-2 rounded-md ${
+                    activeTab === "subscribers"
+                      ? "bg-amber-200 text-amber-900"
+                      : "text-amber-800 hover:bg-amber-100"
+                  }`}
+                >
+                  Subscribers
+                </Link>
               </>
             )}
           </nav>
@@ -147,6 +169,8 @@ const Dashboard = () => {
             <Route path="/gallery" element={<DashboardGallery />} />
             <Route path="/faq" element={<DashboardFAQ />} />
             <Route path="/users" element={<DashboardUsers />} />
+            <Route path="/contacts" element={<DashboardContacts />} />
+            <Route path="/subscribers" element={<DashboardSubscribers />} />
           </Routes>
         </main>
       </div>

@@ -15,7 +15,7 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-cafe-brown mb-6 leading-relaxed">
-              Founded in 2015, <span className="font-bold">Daily Grind</span> began with a simple mission: to create a space where quality coffee meets genuine community. Our founder, Elena, traveled the world studying coffee cultures before bringing her passion back home.
+              Founded in 2015, <span className="font-bold">L cafe</span> began with a simple mission: to create a space where quality coffee meets genuine community. Our founder, Elena, traveled the world studying coffee cultures before bringing her passion back home.
             </p>
             <p className="text-cafe-brown mb-6 leading-relaxed">
               We source our beans directly from small-scale farmers, ensuring ethical practices and exceptional quality. Each batch is roasted in-house to bring out unique flavor profiles that tell the story of their origin.
