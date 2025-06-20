@@ -29,7 +29,11 @@ const Menu = () => {
   );
   
   const formatCategoryName = (category: string) => {
-    return category.charAt(0).toUpperCase() + category.slice(1);
+    // Convert slug back to readable name
+    return category
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   };
   
   if (isLoading) {

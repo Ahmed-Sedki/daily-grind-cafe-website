@@ -2,12 +2,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import announcementService from "@/services/announcement.service";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const FeaturedAnnouncements = () => {
+  const navigate = useNavigate();
+
   const { data: announcements, isLoading } = useQuery({
     queryKey: ['featured-announcements'],
     queryFn: async () => {
@@ -38,7 +40,11 @@ const FeaturedAnnouncements = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {announcements.slice(0, 3).map((announcement) => (
-            <Card key={announcement._id} className="border-amber-100 hover:shadow-md transition-shadow">
+            <Card
+              key={announcement._id}
+              className="border-amber-100 hover:shadow-md transition-shadow cursor-pointer"
+              onClick={() => navigate(`/announcements/${announcement.slug}`)}
+            >
               <CardHeader>
                 <CardTitle className="text-xl">{announcement.title}</CardTitle>
                 <CardDescription>

@@ -45,12 +45,23 @@ export const getMenuItems = async (req, res) => {
 // Get menu categories
 export const getMenuCategories = async (req, res) => {
   try {
-    const categories = await MenuItem.distinct('category');
+    // Get existing categories from database
+    const existingCategories = await MenuItem.distinct('category');
+
+    // Define all possible categories from the schema
+    const allCategories = ['coffee', 'tea', 'food', 'dessert', 'seasonal'];
+
+    // If no categories exist in database, return all possible categories
+    // Otherwise, return existing categories but ensure they're in the correct order
+    const categories = existingCategories.length > 0
+      ? allCategories.filter(cat => existingCategories.includes(cat))
+      : allCategories;
+
     res.status(200).json(categories);
   } catch (error) {
-    res.status(500).json({ 
-      message: 'Error fetching menu categories', 
-      error: error.message 
+    res.status(500).json({
+      message: 'Error fetching menu categories',
+      error: error.message
     });
   }
 };

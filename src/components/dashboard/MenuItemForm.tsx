@@ -12,6 +12,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { CreateMenuItemData, MenuItem } from "@/services/menu.service";
 import menuService from "@/services/menu.service";
 import authService from "@/services/auth.service";
+import { Category } from "@/services/category.service";
 import { Loader2 } from "lucide-react";
 
 interface MenuItemFormProps {
@@ -141,10 +142,13 @@ const MenuItemForm = ({ initialData, onSuccess, onCancel }: MenuItemFormProps) =
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {categoriesData ? (
-                      categoriesData.map((category: string) => (
-                        <SelectItem key={category} value={category}>
-                          {category.charAt(0).toUpperCase() + category.slice(1)}
+                    {categoriesData && categoriesData.length > 0 ? (
+                      categoriesData.map((category: Category) => (
+                        <SelectItem key={category.slug} value={category.slug}>
+                          <div className="flex items-center gap-2">
+                            {category.icon && <span>{category.icon}</span>}
+                            {category.name}
+                          </div>
                         </SelectItem>
                       ))
                     ) : (

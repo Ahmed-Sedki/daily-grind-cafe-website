@@ -78,7 +78,7 @@ const Contact = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-1 container mx-auto py-12 px-4">
+      <main className="flex-1 container mx-auto pt-24 pb-12 px-4">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-amber-800 mb-6 text-center">Contact Us</h1>
           

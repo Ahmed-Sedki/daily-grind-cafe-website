@@ -2,11 +2,14 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import announcementService from "@/services/announcement.service";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 const About = () => {
+  const navigate = useNavigate();
+
   const { data: announcements, isLoading } = useQuery({
     queryKey: ['announcements', 'featured'],
     queryFn: async () => {
@@ -19,7 +22,7 @@ const About = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-1 container mx-auto py-12 px-4">
+      <main className="flex-1 container mx-auto pt-24 pb-12 px-4">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-amber-800 mb-6">About L Café</h1>
           
@@ -67,7 +70,11 @@ const About = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {announcements?.map((announcement) => (
-                <Card key={announcement._id} className="hover:shadow-md transition-shadow">
+                <Card
+                  key={announcement._id}
+                  className="hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => navigate(`/announcements/${announcement.slug}`)}
+                >
                   <CardHeader>
                     <CardTitle className="text-amber-800">{announcement.title}</CardTitle>
                     <CardDescription>

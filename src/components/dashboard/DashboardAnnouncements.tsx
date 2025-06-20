@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import announcementService, { Announcement } from "@/services/announcement.service";
+import categoryService, { Category } from "@/services/category.service";
 import { format } from "date-fns";
 
 import {
@@ -90,6 +91,15 @@ const DashboardAnnouncements = () => {
     queryKey: ['announcements', currentPage],
     queryFn: async () => {
       const response = await announcementService.getAnnouncements(currentPage, 10);
+      return response.data;
+    },
+  });
+
+  // Fetch announcement categories
+  const { data: categories } = useQuery({
+    queryKey: ['announcement-categories'],
+    queryFn: async () => {
+      const response = await categoryService.getCategoriesByType('announcement');
       return response.data;
     },
   });
@@ -372,10 +382,14 @@ const DashboardAnnouncements = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="event">Event</SelectItem>
-                        <SelectItem value="menu">Menu</SelectItem>
-                        <SelectItem value="general">General</SelectItem>
-                        <SelectItem value="promotion">Promotion</SelectItem>
+                        {categories?.map((category: Category) => (
+                          <SelectItem key={category.slug} value={category.slug}>
+                            <div className="flex items-center gap-2">
+                              {category.icon && <span>{category.icon}</span>}
+                              {category.name}
+                            </div>
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </FormItem>
@@ -486,10 +500,14 @@ const DashboardAnnouncements = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="event">Event</SelectItem>
-                        <SelectItem value="menu">Menu</SelectItem>
-                        <SelectItem value="general">General</SelectItem>
-                        <SelectItem value="promotion">Promotion</SelectItem>
+                        {categories?.map((category: Category) => (
+                          <SelectItem key={category.slug} value={category.slug}>
+                            <div className="flex items-center gap-2">
+                              {category.icon && <span>{category.icon}</span>}
+                              {category.name}
+                            </div>
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </FormItem>

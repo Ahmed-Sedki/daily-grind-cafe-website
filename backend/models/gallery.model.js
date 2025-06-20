@@ -9,10 +9,9 @@ const galleryItemSchema = new mongoose.Schema({
   description: { 
     type: String 
   },
-  category: { 
-    type: String, 
-    enum: ['interior', 'food', 'drinks', 'events', 'team'],
-    default: 'interior'
+  category: {
+    type: String,
+    required: true
   },
   imagePath: { 
     type: String, 

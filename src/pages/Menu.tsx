@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useQuery } from "@tanstack/react-query";
 import menuService, { MenuItem } from "@/services/menu.service";
+import { Category } from "@/services/category.service";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -64,7 +65,7 @@ const Menu = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-1 container mx-auto py-12 px-4">
+      <main className="flex-1 container mx-auto pt-24 pb-12 px-4">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-4xl font-bold text-amber-800 mb-6 text-center">Our Menu</h1>
           <p className="text-lg text-center max-w-3xl mx-auto mb-10">
@@ -87,9 +88,12 @@ const Menu = () => {
                   <TabsTrigger value="all">All</TabsTrigger>
                   <TabsTrigger value="featured">Featured</TabsTrigger>
                   <TabsTrigger value="seasonal">Seasonal</TabsTrigger>
-                  {categories?.map((category: string) => (
-                    <TabsTrigger key={category} value={category}>
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                  {categories?.map((category: Category) => (
+                    <TabsTrigger key={category.slug} value={category.slug}>
+                      <div className="flex items-center gap-2">
+                        {category.icon && <span>{category.icon}</span>}
+                        {category.name}
+                      </div>
                     </TabsTrigger>
                   ))}
                 </TabsList>

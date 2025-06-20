@@ -26,6 +26,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { GalleryItem } from "@/services/gallery.service";
 import galleryService from "@/services/gallery.service";
 import authService from "@/services/auth.service";
+import categoryService, { Category } from "@/services/category.service";
 import api from "@/services/api";
 
 // Define form schema
@@ -54,7 +55,7 @@ const GalleryItemForm = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const isEditing = !!galleryItem;
 
   // Initialize the form
@@ -73,7 +74,7 @@ const GalleryItemForm = ({
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await galleryService.getGalleryCategories();
+        const response = await categoryService.getCategoriesByType('gallery');
         setCategories(response.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -227,8 +228,11 @@ const GalleryItemForm = ({
                 </FormControl>
                 <SelectContent>
                   {categories.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    <SelectItem key={category.slug} value={category.slug}>
+                      <div className="flex items-center gap-2">
+                        {category.icon && <span>{category.icon}</span>}
+                        {category.name}
+                      </div>
                     </SelectItem>
                   ))}
                 </SelectContent>

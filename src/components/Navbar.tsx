@@ -81,7 +81,7 @@ const Navbar = () => {
         
         <div className="flex items-center gap-4">
           <Link to="/login">
-            <Button variant="glass" className="hidden md:inline-flex">
+            <Button variant="outline" className="hidden md:inline-flex border-cafe-brown text-cafe-brown hover:bg-cafe-brown hover:text-white">
               Login
             </Button>
           </Link>

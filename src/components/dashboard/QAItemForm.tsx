@@ -25,6 +25,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import qaService, { QAItem } from "@/services/qa.service";
+import categoryService, { Category } from "@/services/category.service";
 
 // Form validation schema
 const qaItemSchema = z.object({
@@ -51,7 +52,7 @@ const QAItemForm = ({ qaItem, onSuccess, onCancel }: QAItemFormProps) => {
   const { data: categories } = useQuery({
     queryKey: ["qa-categories"],
     queryFn: async () => {
-      const response = await qaService.getQACategories();
+      const response = await categoryService.getCategoriesByType('qa');
       return response.data;
     },
   });
@@ -153,9 +154,12 @@ const QAItemForm = ({ qaItem, onSuccess, onCancel }: QAItemFormProps) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {categories?.map((category: string) => (
-                      <SelectItem key={category} value={category}>
-                        {category.charAt(0).toUpperCase() + category.slice(1)}
+                    {categories?.map((category: Category) => (
+                      <SelectItem key={category.slug} value={category.slug}>
+                        <div className="flex items-center gap-2">
+                          {category.icon && <span>{category.icon}</span>}
+                          {category.name}
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectContent>

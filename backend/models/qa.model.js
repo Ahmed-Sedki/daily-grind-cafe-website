@@ -16,9 +16,8 @@ const qaSchema = new mongoose.Schema({
     default: ''
     // required: true 
   },
-  category: { 
-    type: String, 
-    enum: ['coffee-basics', 'products', 'events', 'dietary', 'general'],
+  category: {
+    type: String,
     default: 'general'
   },
   submittedBy: { 

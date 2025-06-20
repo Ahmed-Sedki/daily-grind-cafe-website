@@ -38,7 +38,7 @@ const Location = () => {
               <div>
                 <h3 className="font-serif font-bold text-xl mb-2">Contact</h3>
                 <p className="mb-1">Phone: (555) 123-4567</p>
-                <p>Email: hello@dailygrind.com</p>
+                <p>Email: hello@Lcafecom</p>
               </div>
             </div>
           </div>

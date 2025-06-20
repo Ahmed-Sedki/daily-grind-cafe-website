@@ -1,6 +1,7 @@
 
 import api from './api';
 import authService from './auth.service';
+import categoryService from './category.service';
 
 export interface MenuItem {
   _id: string;
@@ -43,7 +44,8 @@ const menuService = {
   },
 
   getCategories: async () => {
-    return api.get('/menu/categories');
+    // Use dynamic categories instead of hardcoded ones
+    return categoryService.getCategoriesByType('menu');
   },
 
   getFeaturedItems: async () => {

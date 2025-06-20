@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -10,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 
 const Announcements = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
   
   const { data, isLoading } = useQuery({
     queryKey: ['public-announcements', currentPage],
@@ -24,18 +26,30 @@ const Announcements = () => {
       case 'event':
         return 'bg-blue-100 text-blue-800';
       case 'menu':
+      case 'menu-updates':
         return 'bg-green-100 text-green-800';
       case 'promotion':
         return 'bg-purple-100 text-purple-800';
+      case 'general':
+      case 'general-announcement':
+        return 'bg-gray-100 text-gray-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
   };
 
+  const formatCategoryName = (categorySlug: string) => {
+    // Convert slug back to readable name
+    return categorySlug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 container mx-auto px-4 py-12">
+      <main className="flex-1 container mx-auto px-4 pt-24 pb-12">
         <div className="text-center mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-amber-900 mb-2">
             Café Announcements
@@ -53,7 +67,11 @@ const Announcements = () => {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {data?.announcements?.map((announcement: Announcement) => (
-                <Card key={announcement._id} className="overflow-hidden hover:shadow-md transition-shadow border-amber-100">
+                <Card
+                  key={announcement._id}
+                  className="overflow-hidden hover:shadow-md transition-shadow border-amber-100 cursor-pointer"
+                  onClick={() => navigate(`/announcements/${announcement.slug}`)}
+                >
                   {announcement.image && (
                     <div className="h-48 overflow-hidden">
                       <img 
@@ -66,7 +84,7 @@ const Announcements = () => {
                   <CardHeader className="pb-2">
                     <div className="flex justify-between items-start">
                       <Badge className={`${getCategoryColor(announcement.category)}`}>
-                        {announcement.category.charAt(0).toUpperCase() + announcement.category.slice(1)}
+                        {formatCategoryName(announcement.category)}
                       </Badge>
                       {announcement.featured && (
                         <Badge variant="outline" className="bg-amber-50 text-amber-800 border-amber-200">

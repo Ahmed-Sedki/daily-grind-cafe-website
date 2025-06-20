@@ -16,6 +16,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
 import Announcements from "./pages/Announcements";
+import AnnouncementDetail from "./pages/AnnouncementDetail";
 import FAQ from "./pages/FAQ";
 import Login from "./pages/NewLogin";
 import Dashboard from "./pages/Dashboard";
@@ -62,6 +63,7 @@ const App = () => {
               <Route path="/contact" element={<Contact />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/announcements" element={<Announcements />} />
+              <Route path="/announcements/:slug" element={<AnnouncementDetail />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/site-map.xml" element={<Sitemap />} />
               <Route path="/login" element={<Login />} />

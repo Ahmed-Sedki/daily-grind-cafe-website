@@ -9,6 +9,7 @@ import DashboardAnnouncements from "@/components/dashboard/DashboardAnnouncement
 import DashboardMenu from "@/components/dashboard/DashboardMenu";
 import DashboardGallery from "@/components/dashboard/DashboardGallery";
 import DashboardFAQ from "@/components/dashboard/DashboardFAQ";
+import DashboardCategories from "@/components/dashboard/DashboardCategories";
 import DashboardUsers from "@/components/dashboard/DashboardUsers";
 import DashboardContacts from "@/components/dashboard/DashboardContacts";
 import DashboardSubscribers from "@/components/dashboard/DashboardSubscribers";
@@ -122,6 +123,17 @@ const Dashboard = () => {
               FAQ
             </Link>
 
+            <Link
+              to="/dashboard/categories"
+              className={`block px-4 py-2 rounded-md ${
+                activeTab === "categories"
+                  ? "bg-amber-200 text-amber-900"
+                  : "text-amber-800 hover:bg-amber-100"
+              }`}
+            >
+              Categories
+            </Link>
+
             {user.role === "admin" && (
               <>
                 <Separator className="my-2" />
@@ -168,6 +180,7 @@ const Dashboard = () => {
             <Route path="/menu" element={<DashboardMenu />} />
             <Route path="/gallery" element={<DashboardGallery />} />
             <Route path="/faq" element={<DashboardFAQ />} />
+            <Route path="/categories" element={<DashboardCategories />} />
             <Route path="/users" element={<DashboardUsers />} />
             <Route path="/contacts" element={<DashboardContacts />} />
             <Route path="/subscribers" element={<DashboardSubscribers />} />

@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -25,11 +25,12 @@ const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Redirect if already logged in
-  if (isAuthenticated) {
-    navigate("/dashboard");
-    return null;
-  }
+  // Redirect if already logged in using useEffect to avoid render issues
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     // Ensure the form doesn't submit normally
@@ -180,10 +181,10 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen">
       <Navbar />
 
-      <main className="flex-1 container mx-auto py-12 px-4 flex items-center justify-center">
+      <main className="container mx-auto px-4 pt-28 pb-12 flex justify-center">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center text-amber-800">

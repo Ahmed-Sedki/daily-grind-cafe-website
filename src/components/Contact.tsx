@@ -8,6 +8,7 @@ import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import contactService from "@/services/contact.service";
 
 // Validation schema
 const formSchema = z.object({
@@ -20,7 +21,8 @@ type FormValues = z.infer<typeof formSchema>;
 
 const Contact = () => {
   const { toast } = useToast();
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   // Form setup with react-hook-form
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -36,18 +38,28 @@ const Contact = () => {
     form.setValue(name as any, value);
   };
 
-  const handleSubmit = (values: FormValues) => {
-    // Here you would normally send the data to your backend
-    console.log("Form submitted:", values);
-    
-    // Show success toast
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you as soon as possible.",
-    });
-    
-    // Reset form
-    form.reset();
+  const handleSubmit = async (values: FormValues) => {
+    setIsSubmitting(true);
+
+    try {
+      await contactService.submitContactForm(values);
+
+      toast({
+        title: "Message Sent",
+        description: "Thank you for your message! We'll get back to you soon.",
+      });
+
+      // Reset form
+      form.reset();
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.response?.data?.message || "Failed to send message. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -115,8 +127,12 @@ const Contact = () => {
               )}
             </div>
             
-            <Button type="submit" className="w-full bg-cafe-brown text-cafe-cream hover:bg-cafe-darkBrown">
-              Send Message
+            <Button
+              type="submit"
+              className="w-full bg-cafe-brown text-cafe-cream hover:bg-cafe-darkBrown"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
           </form>
           

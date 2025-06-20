@@ -1,5 +1,6 @@
 // controllers/qa.controller.js
 import QA from '../models/qa.model.js';
+import Category from '../models/category.model.js';
 import mongoose from 'mongoose';
 import slugify from 'slugify';
 
@@ -200,6 +201,21 @@ export const createQAItem = async (req, res) => {
             return res.status(400).json({ message: 'Question and answer are required' });
         }
 
+        // Validate category if provided
+        if (category) {
+            const validCategory = await Category.findOne({
+                slug: category,
+                type: 'qa',
+                active: true
+            });
+
+            if (!validCategory) {
+                return res.status(400).json({
+                    message: 'Invalid category. Please select a valid Q&A category.'
+                });
+            }
+        }
+
         // Generate slug from question
         const slug = await createUniqueSlug(question);
 
@@ -246,6 +262,21 @@ export const updateQAItem = async (req, res) => {
 
         if (!qaItem) {
             return res.status(404).json({ message: 'Q&A item not found' });
+        }
+
+        // Validate category if provided
+        if (category && category !== qaItem.category) {
+            const validCategory = await Category.findOne({
+                slug: category,
+                type: 'qa',
+                active: true
+            });
+
+            if (!validCategory) {
+                return res.status(400).json({
+                    message: 'Invalid category. Please select a valid Q&A category.'
+                });
+            }
         }
 
         // Check if question is changed, then update slug

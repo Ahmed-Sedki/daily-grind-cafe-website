@@ -80,7 +80,7 @@ const Footer = () => {
               <p className="mb-2">123 Coffee Street</p>
               <p className="mb-2">Downtown, City 10001</p>
               <p className="mb-2">(555) 123-4567</p>
-              <p>hello@dailygrind.com</p>
+              <p>hello@Lcafecom</p>
             </div>
             
             <div>

@@ -1,5 +1,6 @@
 // controllers/gallery.controller.js
 import GalleryItem from '../models/gallery.model.js';
+import Category from '../models/category.model.js';
 import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
@@ -125,12 +126,27 @@ export const getGalleryItemById = async (req, res) => {
 export const createGalleryItem = async (req, res) => {
     try {
       const { title, description, category, featured, sortOrder } = req.body;
-      
+
       // Validation
       if (!title) {
         return res.status(400).json({ message: 'Title is required' });
       }
-      
+
+      if (!category) {
+        return res.status(400).json({ message: 'Category is required' });
+      }
+
+      // Validate category exists and is a gallery category
+      const categoryDoc = await Category.findOne({
+        slug: category,
+        type: 'gallery',
+        active: true
+      });
+
+      if (!categoryDoc) {
+        return res.status(400).json({ message: 'Invalid gallery category' });
+      }
+
       // Check if file was uploaded
       if (!req.file) {
         return res.status(400).json({ message: 'Image file is required' });
@@ -190,7 +206,20 @@ export const createGalleryItem = async (req, res) => {
       if (!galleryItem) {
         return res.status(404).json({ message: 'Gallery item not found' });
       }
-      
+
+      // Validate category if provided
+      if (category && category !== galleryItem.category) {
+        const categoryDoc = await Category.findOne({
+          slug: category,
+          type: 'gallery',
+          active: true
+        });
+
+        if (!categoryDoc) {
+          return res.status(400).json({ message: 'Invalid gallery category' });
+        }
+      }
+
       // Prepare update object
       const updateData = {
         title: title || galleryItem.title,
