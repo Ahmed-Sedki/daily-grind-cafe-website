@@ -279,7 +279,6 @@ npm run seed         # Seed database with initial data
 
 <div align="center">
   <img src="screenshots/6.png" alt="Contact Page" width="800"/>
-  <p><em>Contact form with Google Maps integration</em></p>
 </div>
 
 ### Administrative Dashboard
