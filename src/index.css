@@ -1,0 +1,74 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 30% 98%;
+    --foreground: 25 10% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 25 10% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 10% 20%;
+
+    --primary: 25 60% 25%;
+    --primary-foreground: 30 20% 98%;
+
+    --secondary: 30 20% 94%;
+    --secondary-foreground: 25 60% 25%;
+
+    --muted: 30 10% 92%;
+    --muted-foreground: 25 5% 45%;
+
+    --accent: 173 40% 40%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 25 10% 85%;
+    --input: 25 10% 85%;
+    --ring: 25 60% 25%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .cafe-button {
+    @apply bg-cafe-brown text-cafe-cream hover:bg-cafe-darkBrown transition-colors px-6 py-3 rounded-md font-medium;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-serif font-bold text-cafe-darkBrown mb-4;
+  }
+  
+  .section-subtitle {
+    @apply text-xl font-serif text-cafe-brown mb-6;
+  }
+}
